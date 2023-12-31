@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "463255874757",
+    "project_id": "praktikum9-cdddf",
+    "storage_bucket": "praktikum9-cdddf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463255874757:android:7cb367abdd57b2ef9714ac",
+        "android_client_info": {
+          "package_name": "com.example.crud_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaQATQzcSfBRYQXUNcg6pFThC4bDXPc0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463255874757:android:dc2d9f34ba3f30a29714ac",
+        "android_client_info": {
+          "package_name": "com.example.toko_rumah"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaQATQzcSfBRYQXUNcg6pFThC4bDXPc0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
