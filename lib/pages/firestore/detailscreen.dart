@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:toko_rumah/components/my_detail_facilities.dart';
+import 'package:toko_rumah/components/my_recomen_property.dart';
 
-class _MyDetailPageState extends StatelessWidget {
+// class _MyDetailPageState extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Property Details"),
+//       ),
+//       body: _MyDetailPageState(),
+//     );
+//   }
+// }
+
+class MyDetailPage extends StatefulWidget {
+  const MyDetailPage({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Property Details"),
-      ),
-      body: _MyDetailPageState(),
-    );
-  }
+  State<MyDetailPage> createState() => _MyDetailPageState();
 }
 
-class myde extends StatefulWidget {
-  const myde({Key? key}) : super(key: key);
-
-  @override
-  State<myde> createState() => _mydeState();
-}
-
-class _mydeState extends State<myde> {
+class _MyDetailPageState extends State<MyDetailPage> {
   @override
    Widget build(BuildContext context) {
     return Column(
@@ -316,8 +317,8 @@ class _mydeState extends State<myde> {
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: _MyDetailPageState(),
-  ));
-}
+// void main() {
+//   runApp(MaterialApp(
+//     home: _MyDetailPageState(),
+//   ));
+// }

@@ -8,16 +8,19 @@ import 'package:toko_rumah/pages/auth/login.dart';
 import 'package:toko_rumah/pages/detail.dart';
 import 'package:toko_rumah/pages/home.dart';
 import 'package:toko_rumah/components/my_detail_facilities.dart';
-import 'package:toko_rumah/pages/mydetailpage.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -42,7 +45,6 @@ class MyLayout extends StatefulWidget {
 class _MyLayoutState extends State<MyLayout> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    Page1(),
     MyDetailPage(),
     MyAccountPage(),
   ];

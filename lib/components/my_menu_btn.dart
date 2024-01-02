@@ -6,13 +6,13 @@ class MyMenuBtn extends StatelessWidget {
     required this.icon,
     required this.iconColor,
     required this.title,
-    required this.target,
+    required this.detail,
   });
 
   final IconData icon;
   final Color iconColor;
   final String title;
-  final Widget target;
+  final detail;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class MyMenuBtn extends StatelessWidget {
                 color: iconColor,
               )),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => target,));
+            // Navigator.push(context, MaterialPageRoute(builder: (context) =>detail));
           },
         ),
         const SizedBox(height: 6),

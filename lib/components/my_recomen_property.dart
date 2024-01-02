@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:toko_rumah/pages/detail.dart';
+import 'package:toko_rumah/pages/firestore/read_firestore.dart';
 
 class MyRecommendedProperty extends StatelessWidget {
-  const MyRecommendedProperty({super.key});
+  const MyRecommendedProperty({
+    super.key,
+    required this.target,
+    });
+    
+    final Widget target;
 
   @override
   Widget build(BuildContext context) {
@@ -14,66 +21,71 @@ class MyRecommendedProperty extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Gambar Start
-          Container(
-            height: 205.0,
-            width: 375.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              color: const Color(0xff111111),
-              image: const DecorationImage(
-                image: AssetImage("assets/img/house1.jpg"),
-                fit: BoxFit.fill,
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => target,));
+            },
+            child: Container(
+              height: 205.0,
+              width: 375.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18),
+                color: const Color(0xff111111),
+                image: const DecorationImage(
+                  image: AssetImage("assets/img/house1.jpg"),
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 10,
-                left: 15,
-                right: 15,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    padding: const EdgeInsets.all(8),
-                    child: const Row(
-                      children: [
-                        Icon(
-                          Icons.house,
-                          color: Colors.green,
-                          size: 28,
-                        ),
-                        Text(
-                          "House",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 10,
+                  left: 15,
+                  right: 15,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[50],
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.house,
                             color: Colors.green,
+                            size: 28,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Icon(
-                        Icons.favorite_outline,
-                        color: Colors.grey,
-                        size: 28,
+                          Text(
+                            "House",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ],
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[50],
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Icon(
+                          Icons.favorite_outline,
+                          color: Colors.grey,
+                          size: 28,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -194,3 +206,4 @@ class MyRecommendedProperty extends StatelessWidget {
     );
   }
 }
+

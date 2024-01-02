@@ -1,9 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:toko_rumah/components/my_detail_hotel.dart';
 import 'package:toko_rumah/components/my_menu_btn.dart';
 import 'package:toko_rumah/components/my_recomen_property.dart';
 import 'package:toko_rumah/components/my_top_location.dart';
 import 'package:toko_rumah/components/my_detail_facilities.dart';
+import 'package:toko_rumah/pages/auth/auth_gate.dart';
+import 'package:toko_rumah/pages/auth/login.dart';
 import 'package:toko_rumah/pages/detail.dart';
+import 'package:toko_rumah/pages/detaildua.dart';
+import 'package:toko_rumah/components/my_account.dart';
+import 'package:toko_rumah/pages/profile.dart'; // Import the profile page
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -22,7 +29,26 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.only(left: 20, right: 20),
           scrollDirection: Axis.vertical,
           child: Column(
-            children: [ 
+            children: [
+              // Bubble Logo Profile Start
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 20),
+                child: GestureDetector(
+                  onTap: () {
+                    // Navigate to the profile page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                    );
+                  },
+                  child: CircleAvatar(
+                    radius: 35,
+                    backgroundImage: AssetImage("assets/img/goji.png"),
+                  ),
+                ),
+              ),
+              // Bubble Logo Profile End
+
               // Search Input Start
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
@@ -46,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               // Search Input End
-          
+
               // Menu Start
               const Padding(
                 padding: EdgeInsets.only(top: 8, left: 8, right: 8),
@@ -58,32 +84,32 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: Icons.house,
                         iconColor: Colors.green,
                         title: "House",
-                        target: MyDetailPage(),
+                        detail: MyDetailPage(),
                       ),
                       MyMenuBtn(
                         icon: Icons.apartment,
                         iconColor: Colors.orange,
                         title: "Apartment",
-                        target: MyDetailPage(),
+                        detail: MyDetailPage(),
                       ),
                       MyMenuBtn(
                         icon: Icons.other_houses,
                         iconColor: Colors.blue,
                         title: "Townhouse",
-                        target: MyDetailPage(),
+                        detail: MyDetailPage(),
                       ),
                       MyMenuBtn(
                         icon: Icons.home_filled,
                         iconColor: Colors.red,
                         title: "Warehouse",
-                        target: MyDetailPage(),
+                        detail: MyDetailPage(),
                       ),
                     ],
                   ),
                 ),
               ),
               // Menu End
-          
+
               // Recomended Property Text Start
               const Padding(
                 padding: EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 20),
@@ -109,24 +135,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               // Recomended Property Text End
-          
-              // Recommended Property List Start
+
               // Recommended Property List Start
               const SingleChildScrollView(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    MyRecommendedProperty(),
-                    MyRecommendedProperty(),
-                    MyRecommendedProperty(),
-                    MyRecommendedProperty(),
-                    MyRecommendedProperty(),
+                    MyRecommendedProperty(target: MyDetailPage(),),
+                    MyDetailHotel(detail: MyDetailPagedua(),)
                   ],
                 ),
               ),
               // Recommended Property List End
-          
+
               // Top Location Text Start
               const Padding(
                 padding: EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 15),
@@ -152,56 +174,73 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               // Top Location Text End
-            
-              // Top Location List Start
-          const SingleChildScrollView(
-          padding: EdgeInsets.only(left: 15, right: 15),
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              MyTopLocation(
-                image: AssetImage("assets/img/jakarta.jpeg"),
-                title: "Jakarta",
-                colorBegin: Colors.blue,
-                colorEnd: Color.fromARGB(118, 0, 140, 255),
-              ),
-              MyTopLocation(
-                image: AssetImage("assets/img/bali.jpg"),
-                title: "Bali",
-                colorBegin: Colors.blue,
-                colorEnd: Color.fromARGB(118, 0, 140, 255),
-              ),
-              MyTopLocation(
-                image: AssetImage("assets/img/bandung.jpg"),
-                title: "Bandung",
-                colorBegin: Colors.orange,
-                colorEnd: Color.fromARGB(118, 255, 153, 0),
-              ),
-              MyTopLocation(
-                image: AssetImage("assets/img/jogja.jpg"),
-                title: "Jogja",
-                colorBegin: Colors.orange,
-                colorEnd: Color.fromARGB(118, 255, 153, 0),
-              ),
-              MyTopLocation(
-                image: AssetImage("assets/img/malang.jpg"),
-                title: "Malang",
-                colorBegin: Colors.purple,
-                colorEnd: Color.fromARGB(118, 155, 39, 176),
-              ),
-              MyTopLocation(
-                image: AssetImage("assets/img/sby.jpg"),
-                title: "Surabaya",
-                colorBegin: Colors.blue,
-                colorEnd: Color.fromARGB(118, 0, 140, 255),
-              ),
-            ],
-          ),
-        ),
-        // Top Location List End
 
-        const SizedBox(height: 35),
-     ],
+              // Top Location List Start
+              const SingleChildScrollView(
+                padding: EdgeInsets.only(left: 15, right: 15),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    MyTopLocation(
+                      image: AssetImage("assets/img/jakarta.jpeg"),
+                      title: "Jakarta",
+                      colorBegin: Colors.blue,
+                      colorEnd: Color.fromARGB(118, 0, 140, 255),
+                    ),
+                    MyTopLocation(
+                      image: AssetImage("assets/img/bali.jpg"),
+                      title: "Bali",
+                      colorBegin: Colors.blue,
+                      colorEnd: Color.fromARGB(118, 0, 140, 255),
+                    ),
+                    MyTopLocation(
+                      image: AssetImage("assets/img/bandung.jpg"),
+                      title: "Bandung",
+                      colorBegin: Colors.orange,
+                      colorEnd: Color.fromARGB(118, 255, 153, 0),
+                    ),
+                    MyTopLocation(
+                      image: AssetImage("assets/img/jogja.jpg"),
+                      title: "Jogja",
+                      colorBegin: Colors.orange,
+                      colorEnd: Color.fromARGB(118, 255, 153, 0),
+                    ),
+                    MyTopLocation(
+                      image: AssetImage("assets/img/malang.jpg"),
+                      title: "Malang",
+                      colorBegin: Colors.purple,
+                      colorEnd: Color.fromARGB(118, 155, 39, 176),
+                    ),
+                    MyTopLocation(
+                      image: AssetImage("assets/img/sby.jpg"),
+                      title: "Surabaya",
+                      colorBegin: Colors.blue,
+                      colorEnd: Color.fromARGB(118, 0, 140, 255),
+                    ),
+                  ],
+                ),
+              ),
+              // Top Location List End
+
+              // Account Start
+              // Account Start
+              GestureDetector(
+                onTap: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AuthGate(),));
+                },
+                child: MyAccountList(
+                  icon: Icons.logout,
+                  title: "Logout",
+                ),
+              ),
+              MyAccountList(
+                icon: Icons.delete,
+                title: "Delete Account",
+              ),
+              // Account End
+              const SizedBox(height: 35),
+            ],
           ),
         ),
       ),

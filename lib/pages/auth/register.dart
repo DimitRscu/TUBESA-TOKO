@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:toko_rumah/pages/auth/auth_services.dart';
+import 'package:toko_rumah/pages/auth/login.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -11,6 +14,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +42,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.white, // Ganti warna teks menjadi putih
                       fontFamily: 'Raleway', // Gunakan font kustom
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextFormField(
+                    controller: _usernameController,
+                    style: TextStyle(color: Colors.green.shade700),
+                    decoration: InputDecoration(
+                      labelText: 'Username', // Tambahkan label untuk username
+                      labelStyle: TextStyle(color: Colors.green.shade700),
+                      prefixIcon: Icon(Icons.person, color: Colors.green.shade700),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20.0),
@@ -76,10 +95,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () async {
+                        try {
+                          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          );
+
+                          await FirebaseFirestore.instance.collection('users').doc(userCredential.user?.uid).set({
+                            "nama": _usernameController.text, // Menambahkan username ke Firestore
+                          });
+                        } catch (e) {
+                          print("registration failed: $e");
+                        }
+
                         final message = await AuthService().register(
                           email: _emailController.text,
                           password: _passwordController.text,
                         );
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
 
                         if (message == 'Registration Success') {
                           Navigator.of(context).pop(); // Kembali ke layar login setelah registrasi berhasil
@@ -103,10 +136,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: EdgeInsets.symmetric(vertical: 16.0),
                         child: const Text(
                           'Register',
-                          style: TextStyle(fontSize: 18.0, color: Color.fromARGB(255, 56, 142, 60),
+                          style: TextStyle(fontSize: 18.0, color: Color.fromARGB(255, 56, 142, 60)),
                         ),
                       ),
-                    ),
                     ),
                   ),
                 ],
