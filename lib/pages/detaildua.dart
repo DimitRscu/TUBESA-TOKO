@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toko_rumah/components/my_detail_facilities.dart';
 import 'package:toko_rumah/components/my_payment.dart';
-import 'package:toko_rumah/pages/account.dart';
+// import 'package:toko_rumah/pages/account.dart';
 
 class MyDetailPagedua extends StatefulWidget {
   const MyDetailPagedua({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
 class PaymentProcessPage extends StatelessWidget {
   final String selectedPaymentMethod;
@@ -42,7 +42,7 @@ class PaymentProcessPage extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                'Rp.1,000,000,000',
+                'Rp.300.500.000',
                 style: TextStyle(
                   fontSize: 28,
                   color: const Color.fromARGB(255, 0, 0, 0),

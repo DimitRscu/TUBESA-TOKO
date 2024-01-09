@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:toko_rumah/pages/detaildua.dart';
-import 'package:toko_rumah/pages/firestore/read_firestore.dart';
+// import 'package:toko_rumah/pages/detaildua.dart';
+// import 'package:toko_rumah/pages/firestore/read_firestore.dart';
 
 class MyDetailHotel extends StatelessWidget{
   const MyDetailHotel({

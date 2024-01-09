@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toko_rumah/components/my_detail_facilities.dart';
-import 'package:toko_rumah/components/my_payment.dart';
+// import 'package:toko_rumah/components/my_payment.dart';
 import 'package:toko_rumah/pages/account.dart';
 
 class MyDetailPage extends StatefulWidget {
@@ -86,28 +86,43 @@ class _MyDetailPageState extends State<MyDetailPage> {
                         ],
                       ),
                       const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MyAccountPage(),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.greenAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.blue,
+                              Colors.green
+                            ], // Set your gradient colors
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            "Beli",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black87,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MyAccountPage(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors
+                                .transparent, // Make the button transparent as the color is set by the Container's decoration
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              "Beli",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors
+                                    .white, // Set text color to white or any color that contrasts with your gradient
+                              ),
                             ),
                           ),
                         ),
@@ -154,7 +169,21 @@ class _MyDetailPageState extends State<MyDetailPage> {
                 ],
               ),
             ),
-            // Location End
+// Location End
+
+// Harga Start
+            Padding(
+              padding: const EdgeInsets.only(left: 20, top: 8),
+              child: Text(
+                "Rp. 300.500.000",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: Colors.green,
+                ),
+              ),
+            ),
+// Harga End
 
             // Fasilitas Text Start
             Padding(
@@ -296,12 +325,14 @@ class _MyDetailPageState extends State<MyDetailPage> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Icon(
-                            Icons.message,
-                            size: 30,
-                          ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Icon(
+                              Icons.message,
+                              size: 30,
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(width: 7),
@@ -313,12 +344,14 @@ class _MyDetailPageState extends State<MyDetailPage> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Icon(
-                            Icons.phone,
-                            size: 30,
-                          ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Icon(
+                              Icons.phone,
+                              size: 30,
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -326,7 +359,7 @@ class _MyDetailPageState extends State<MyDetailPage> {
                 ],
               ),
             ),
-            // Property Agent End
+// Property Agent End
 
             const SizedBox(height: 20),
           ],

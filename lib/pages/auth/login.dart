@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toko_rumah/pages/auth/auth_services.dart';
 import 'package:toko_rumah/pages/auth/register.dart';
-// ignore: unused_import
-import 'package:toko_rumah/pages/firestore/read_firestore.dart';
+// import 'package:toko_rumah/pages/firestore/read_firestore.dart';
 import 'package:toko_rumah/pages/home.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber[400],
+      backgroundColor: Colors.greenAccent,
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -37,11 +36,39 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const SizedBox(height: 20.0),
-                    Image.asset(
-                      'assets/img/guntur.png',
-                      width: 140, // Set the width as per your preference
-                      height: 70, // Set the height as per your preference
+                    // Image.asset(
+                    //   'assets/img/guntur.png',
+                    //   width: 140, // Set the width as per your preference
+                    //   height: 70, // Set the height as per your preference
+                    // ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[50],
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.house,
+                              color: Colors.green,
+                              size: 28,
+                            ),
+                            Text(
+                              "House",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
+
                     const SizedBox(height: 20.0),
                     TextFormField(
                       controller: _emailController,
@@ -49,8 +76,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                         labelText: 'Email',
                         labelStyle: TextStyle(color: Colors.black),
-                        prefixIcon:
-                            Icon(Icons.email, color: Colors.amber[400]),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: Colors.green,
+                        ),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -67,8 +96,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                         labelText: 'Password',
                         labelStyle: TextStyle(color: Colors.black),
-                        prefixIcon:
-                            Icon(Icons.lock, color: Colors.amber[400]),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: Colors.green,
+                        ),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -103,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.amber[400],
+                          primary: Colors.green,
                           elevation: 8.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
@@ -137,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Create an Account',
                         style: TextStyle(
                             fontSize: 16.0,
-                            color: Color.fromARGB(255, 255, 202, 40)),
+                            color: Color.fromARGB(255, 44, 38, 18)),
                       ),
                     ),
                     const SizedBox(height: 10.0),
@@ -152,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Forgot Password?',
                         style: TextStyle(
                             fontSize: 16.0,
-                            color: Color.fromARGB(255, 255, 202, 40)),
+                            color: Color.fromARGB(255, 44, 38, 18)),
                       ),
                     ),
                   ],

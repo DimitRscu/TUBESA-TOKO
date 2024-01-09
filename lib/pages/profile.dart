@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:toko_rumah/pages/auth/auth_gate.dart';
 import 'package:toko_rumah/pages/editprofile.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({Key? key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -12,7 +13,10 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String nama = '';
+  String email = '';
+  String phone = '';
   String aidi = '';
+  String image = '';
 
   @override
   void initState() {
@@ -20,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
     getUserUID();
   }
 
-  void getUserUID() {
+  Future<void> getUserUID() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
 
@@ -29,23 +33,26 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         aidi = uid;
       });
-      getUserName(); // Panggil getUserName setelah aidi terisi
+      await getUserInfo();
       print(aidi);
     } else {
       // Handle the case when user is null, if needed
     }
   }
 
-  void getUserName() {
+  Future<void> getUserInfo() async {
     if (aidi.isNotEmpty) {
       final docRef = FirebaseFirestore.instance.collection('users').doc(aidi);
 
-      docRef.get().then(
+      await docRef.get().then(
         (DocumentSnapshot doc) {
           if (doc.exists) {
             final data = doc.data() as Map<String, dynamic>;
             setState(() {
-              nama = data['nama'];
+              nama = data['nama'] ?? ''; // Tambahkan pengecekan null disini
+              email = data['email'] ?? '';
+              phone = data['phone'] ?? '';
+              image = data['profile_image'] ?? '';
             });
           } else {
             // Handle the case when the document doesn't exist, if needed
@@ -60,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Text("Profil"),
       ),
       body: Align(
         alignment: Alignment.topCenter,
@@ -77,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     CircleAvatar(
                       radius: 80,
-                      backgroundImage: AssetImage("assets/img/goji.png"),
+                      backgroundImage: NetworkImage(image),
                     ),
                     SizedBox(height: 20),
                     Text(
@@ -95,38 +102,51 @@ class _ProfilePageState extends State<ProfilePage> {
               // User Info Start
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Email: budi@example.com",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                    SizedBox(height: 10),
+                    ListTile(
+                      title: Text(
+                        "Email",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      subtitle: Text(
+                        email,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    Divider(),
+                    ListTile(
+                      title: Text(
+                        "Telepon",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      subtitle: Text(
+                        phone,
+                        style: TextStyle(fontSize: 16),
                       ),
                     ),
                     SizedBox(height: 10),
-                    Text(
-                      "Phone: +123 456 789",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Location: Jakarta, Indonesia",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
                   ],
                 ),
               ),
               // User Info End
 
-              // Edit Profile Button Start
+              // Tambahkan SizedBox untuk memberi ruang antara info telepon dan tombol Edit Profil
+              SizedBox(height: 20),
+
+              // Tombol Edit Profil Start
               ElevatedButton(
                 onPressed: () {
                   // Navigate to the edit profile page
@@ -136,43 +156,71 @@ class _ProfilePageState extends State<ProfilePage> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
+                  primary:
+                      Colors.greenAccent, // Ganti warna latar belakang
+                  onPrimary: Colors.white, // Ganti warna teks
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 ),
                 child: Text(
-                  "Edit Profile",
+                  "Edit Profil",
                   style: TextStyle(
                     fontSize: 18,
                   ),
                 ),
               ),
+              // Tombol Edit Profil End
 
-              // Edit Profile Button End
+               // Tombol Edit Profil End
 
-              // Additional Profile Details Start
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Member Since: October 2021",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Total Points: 100",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+              // Tambahkan SizedBox untuk memberi ruang antara tombol Edit Profil dan tombol Logout/Delete
+              SizedBox(height: 20),
+
+              // Tombol Logout Start
+              ElevatedButton(
+                onPressed: () {
+                  // Handle fungsi logout
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => AuthGate()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red, // Ganti warna latar belakang
+                  onPrimary: Colors.white, // Ganti warna teks
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                ),
+                child: Text(
+                  "Logout",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
               ),
-              // Additional Profile Details End
+              // Tombol Logout End
+
+              // Tambahkan SizedBox untuk memberi ruang antara tombol Logout dan tombol Delete
+              SizedBox(height: 20),
+
+              // Tombol Hapus Akun Start
+              ElevatedButton(
+                onPressed: () {
+                  // Handle fungsi hapus akun
+                  // Tambahkan logika Anda untuk menghapus akun
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red, // Ganti warna latar belakang
+                  onPrimary: Colors.white, // Ganti warna teks
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                ),
+                child: Text(
+                  "Hapus Akun",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              // Tombol Hapus Akun End
             ],
           ),
         ),

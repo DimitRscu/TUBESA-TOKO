@@ -29,19 +29,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
               borderRadius: BorderRadius.circular(20.0),
             ),
             elevation: 8.0,
-            color: Colors.green, // Ganti warna Card menjadi hijau
+            color: Colors.green,
             child: Padding(
               padding: const EdgeInsets.all(24.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        color: Colors.white,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
                   Text(
                     'Daftar dulu ya',
                     style: TextStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white, // Ganti warna teks menjadi putih
-                      fontFamily: 'Raleway', // Gunakan font kustom
+                      color: Colors.white,
+                      fontFamily: 'Raleway',
                     ),
                   ),
                   const SizedBox(height: 20.0),
@@ -49,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: _usernameController,
                     style: TextStyle(color: Colors.green.shade700),
                     decoration: InputDecoration(
-                      labelText: 'Username', // Tambahkan label untuk username
+                      labelText: 'Username',
                       labelStyle: TextStyle(color: Colors.green.shade700),
                       prefixIcon: Icon(Icons.person, color: Colors.green.shade700),
                       filled: true,
@@ -102,8 +113,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           );
 
                           await FirebaseFirestore.instance.collection('users').doc(userCredential.user?.uid).set({
-                            "nama": _usernameController.text, // Menambahkan username ke Firestore
+                            "nama": _usernameController.text,
                           });
+
+                           // Show success message
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Registration successful!'),
+                              backgroundColor: Colors.green, // Customize the color
+                            ),
+                          );
+
                         } catch (e) {
                           print("registration failed: $e");
                         }
@@ -115,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
 
                         if (message == 'Registration Success') {
-                          Navigator.of(context).pop(); // Kembali ke layar login setelah registrasi berhasil
+                          Navigator.of(context).pop();
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -130,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),
                         ),
-                        shadowColor: Colors.grey, // Tambahkan bayangan yang halus
+                        shadowColor: Colors.grey,
                       ),
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 16.0),

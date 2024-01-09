@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toko_rumah/components/my_detail_facilities.dart';
-import 'package:toko_rumah/components/my_recomen_property.dart';
+// import 'package:toko_rumah/components/my_recomen_property.dart';
 
 // class _MyDetailPageState extends StatelessWidget {
 //   @override
